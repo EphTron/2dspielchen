@@ -4,38 +4,26 @@ using UnityEngine;
 
 public class CharacterController2D : MonoBehaviour
 {
+    Rigidbody2D body;
 
-    public float moveSpped;
-    public Rigidbody2D rb;
-    Vector3 moveDirection();
+    float horizontal;
+    float vertical;
+
+    public float runSpeed = 20.0f;
     // Start is called before the first frame update
     void Start()
     {
-        
+        body = GetComponent<Rigidbody2D>();
     }
 
     // Update is called once per frame
     void Update()
     {
-        ProcessInputs;
+        horizontal = Input.GetAxisRaw("Horizontal");
+        vertical = Input.GetAxisRaw("Vertical");
     }
-
-    void FixedUpdate()
+    private void FixedUpdate()
     {
-        Move();
+        body.velocity = new Vector2(horizontal * runSpeed, vertical * runSpeed);
     }
-
-    void ProcessInputs()
-    {
-        float moveX = Input.GetAxisRaw("Horizontal");
-        float moveY = Input.GetAxisRaw("Vertical");
-
-        moveDirection = new Vector2(moveX, moveY);
-    }
-
-    void Move()
-    {
-        rb.velocity = new Vector2(moveDirection.x * moveSpeed, moveDirection.y * moveSpeed);   
-    }
-
 }
